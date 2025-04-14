@@ -32,12 +32,11 @@ const connectDB = async () => {
   }
 };
 
-// CORS configuration
 app.use(cors({
   origin: [
-    "http://localhost:5173",    
-    "https://tupublish.com",     
-    "https://api.tupublish.com/api"  // Production
+    "http://localhost:5173",         // Local dev
+    "https://tupublish.com",         // Production frontend
+    "https://api.tupublish.com"      // (optional if another frontend calls this API directly)
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
