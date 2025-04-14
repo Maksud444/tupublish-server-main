@@ -35,6 +35,9 @@ const connectDB = async () => {
 const allowedOrigins = [
   "http://localhost:5173",
   "https://tupublish.com",
+  "https://www.tupublish.com",
+    "http://tupublish.com",
+  "http://www.tupublish.com",
 ];
 
 app.use(cors({
