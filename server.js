@@ -36,8 +36,8 @@ const connectDB = async () => {
 app.use(cors({
   origin: [
     "http://localhost:5173",    
-    "https://tupublish-client-main.vercel.app",     
-    "https://tupublish-server-main.vercel.app"  // Production
+    "https://tupublish.com",     
+    "https://api.tupublish.com/api"  // Production
   ],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
