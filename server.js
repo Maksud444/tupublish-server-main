@@ -18,9 +18,6 @@ import authRoute from "./routes/auth.route.js";
 dotenv.config();
 const app = express();
 
-
-const uploadRoute = require("./routes/upload");
-
 // Database configuration
 mongoose.set("strictQuery", true);
 const connectDB = async () => {
@@ -74,8 +71,6 @@ app.use("/api/orders", orderRoute);
 app.use("/api/reviews", reviewRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
-app.use("/api", uploadRoute);
-
 
 // Global error handler
 app.use((err, req, res, next) => {
