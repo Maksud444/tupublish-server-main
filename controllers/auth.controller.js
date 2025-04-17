@@ -48,9 +48,11 @@ export const login = async (req, res, next) => {
 
     // ✅ Include token in response as well
     res
-      .cookie("accessToken", token, { httpOnly: true })
-      .status(200)
-      .send({ ...info, token }); // <-- Send token in response
+    .cookie("accessToken", token, {
+      httpOnly: true,
+      sameSite: "None", // important if frontend and backend are on different origins
+      secure: true,
+    }) // <-- Send token in response
   } catch (err) {
     console.error("Login error:", err);
     next(createError(400, "Something went wrong"));
