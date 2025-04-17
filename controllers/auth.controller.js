@@ -32,35 +32,31 @@ export const register = async (req, res, next) => {
 export const login = async (req, res, next) => {
   try {
     const user = await User.findOne({ username: req.body.username });
+
     if (!user) return next(createError(400, "User not found"));
 
     const validPassword = await bcrypt.compare(req.body.password, user.password);
     if (!validPassword) return next(createError(400, "Wrong password"));
 
     const token = jwt.sign(
-      {
-        id: user._id,
-        isSeller: user.isSeller,
-      },
+      { id: user._id, isSeller: user.isSeller },
       process.env.JWT_KEY,
       { expiresIn: "1h" }
     );
 
     const { password, ...info } = user._doc;
 
+    // ✅ Include token in response as well
     res
-      .cookie("accessToken", token, {
-        httpOnly: true,
-        sameSite: "Lax",
-        secure: false, // change to true in production
-      })
+      .cookie("accessToken", token, { httpOnly: true })
       .status(200)
-      .send({ ...info, token }); // ✅ include token in response
+      .send({ ...info, token }); // <-- Send token in response
   } catch (err) {
     console.error("Login error:", err);
     next(createError(400, "Something went wrong"));
   }
 };
+
 
 export const logout = async (req, res) => {
   res.clearCookie("accessToken", {

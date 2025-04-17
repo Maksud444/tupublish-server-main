@@ -3,7 +3,7 @@ import createError from "../utils/createError.js";
 
 export const verifyToken = (req, res, next) => {
   const token =
-    req.cookies?.accessToken || // From cookie
+    res.cookie("accessToken", token, { httpOnly: true })
     (req.headers.authorization && req.headers.authorization.split(" ")[1]); // From Authorization: Bearer <token>
 
   if (!token) return next(createError(401, "You are not authenticated!"));
