@@ -5,6 +5,8 @@
   "type": "module",
   "scripts": {
     "start": "node server.js",
+    "socket": "node socketServer.js",
+    "dev": "concurrently \"npm run start\" \"npm run socket\"",
     "build": "npm install"
   },
   "keywords": [],
@@ -29,5 +31,8 @@
     "nodemon": "^3.1.9",
     "socket.io": "^4.8.1",
     "stripe": "^17.7.0"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
   }
 }
