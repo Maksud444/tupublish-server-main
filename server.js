@@ -18,6 +18,7 @@ import messageRoute from "./routes/message.route.js";
 import authRoute from "./routes/auth.route.js";
 import Message from "./models/message.model.js";
 import Conversation from "./models/conversation.model.js";
+import adminRoute from "./routes/admin.route.js";
 
 dotenv.config();
 const app = express();
@@ -93,6 +94,7 @@ app.use("/api/orders", orderRoute);
 app.use("/api/reviews", reviewRoute);
 app.use("/api/conversations", conversationRoute);
 app.use("/api/messages", messageRoute);
+app.use("/api/admin", adminRoute);
 
 // Global error handler
 app.use((err, req, res, next) => {

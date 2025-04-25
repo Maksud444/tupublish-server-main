@@ -34,10 +34,14 @@ const userSchema = new Schema({
   },
   isSeller: {
     type: Boolean,
-    default:false
+    default: false
+  },
+  isAdmin: {
+    type: Boolean,
+    default: false
   },
 },{
-  timestamps:true
+  timestamps: true
 });
 
 export default mongoose.model("User", userSchema)

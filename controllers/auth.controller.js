@@ -39,7 +39,11 @@ export const login = async (req, res, next) => {
     if (!validPassword) return next(createError(401, "Wrong password"));
 
     const token = jwt.sign(
-      { id: user._id, isSeller: user.isSeller },
+      { 
+        id: user._id, 
+        isSeller: user.isSeller,
+        isAdmin: user.isAdmin || false 
+      },
       process.env.JWT_KEY,
       { expiresIn: "1h" }
     );
@@ -71,5 +75,16 @@ export const logout = async (req, res, next) => {
       .json({ message: "User has been logged out" });
   } catch (err) {
     next(createError(500, "Logout failed"));
+  }
+};
+
+
+export const getMe = async (req, res, next) => {
+  try {
+    const user = await User.findById(req.userId).select("-password");
+    if (!user) return next(createError(404, "User not found"));
+    res.status(200).json(user);
+  } catch (err) {
+    next(err);
   }
 };
